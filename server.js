@@ -8,10 +8,11 @@ var jsonData = {
 };
 
 var express = require('express');
+var fs = require('fs');
 
 var app = express();
 
-app.get('/', function (req, res) {
+app.get('/index.html', function (req, res) {
     res.sendFile(__dirname + '/index.html', function (err) {
         if (err) {
             res.status(500).send(err);
@@ -20,8 +21,18 @@ app.get('/', function (req, res) {
 })
 
 
+app.get('/', function (req, res) {
+    fs.readFile('index.html', function (err, buffer) {
+        var html = buffer.toString();
+        res.setHeader
+        res.send(html);
+    })
+})
 app.get('/data', function (req, res) {
     res.json(jsonData);
 })
 
-app.listen(3000);
+var port = 3000;
+app.listen(port, function () {
+    console.log('listening on http://localhost:' + port);
+});
